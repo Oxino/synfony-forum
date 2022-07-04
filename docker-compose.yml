@@ -1,0 +1,97 @@
+version: '3'
+
+services:
+  phpmyadmin:
+    networks:
+      - default
+    depends_on:
+      - database
+    image: phpmyadmin:latest
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=database
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=root_password
+
+  database:
+    image: mariadb:latest
+    networks:
+      - default
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    environment:
+      - MYSQL_USER=symfony
+      - MYSQL_PASSWORD=symfony_password
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=symfony
+
+  php:
+    networks:
+      - default
+    depends_on:
+      - database
+    build:
+      dockerfile: Dockerfile
+      context: .
+    entrypoint: php
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - ~/.gitconfig:/root/.gitconfig:ro
+
+  symfony:
+    networks:
+      - default
+    depends_on:
+      - database
+    build:
+      dockerfile: Dockerfile
+      context: .
+    entrypoint: symfony
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - ~/.gitconfig:/root/.gitconfig:ro
+
+  web:
+    networks:
+      - default
+    depends_on:
+      - database
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "8000:8000"
+    entrypoint:
+     - symfony
+     - server:start
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - ~/.gitconfig:/root/.gitconfig:ro
+
+  composer:
+    networks:
+      - default
+    depends_on:
+      - database
+    build:
+      dockerfile: Dockerfile
+      context: .
+    entrypoint: composer
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - ~/.gitconfig:/root/.gitconfig:ro
+
+volumes:
+  mariadb-data:
+
+networks:
+  default:
+    driver: bridge
