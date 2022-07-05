@@ -30,6 +30,11 @@ class Answer
     #[ORM\Column(type: 'text')]
     private $content;
 
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -17,7 +17,12 @@ Après cela rendez vous sur http://localhost:8080/ pour vérifier que le php my 
 Puis vous pouvez aller sur http://localhost:8000/ pour consulter le site.
 
 ## Lancer le projet
+1. docker compose up -d
 
 ## Vérifier que le projet est bien fonctionnel
 
 ## Commandes utiles
+### Commande pour ftavailler avec fixtures
+docker compose run --rm composer require --dev orm-fixtures
+### Commande pour travailler avec facker php
+docker compose run --rm composer require --dev fakerphp/faker

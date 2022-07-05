@@ -15,7 +15,7 @@ class Category
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private $created_at;
 
     #[ORM\Column(type: 'string', length: 100)]
@@ -26,6 +26,7 @@ class Category
 
     public function __construct()
     {
+        $this->created_at = new \DateTimeImmutable();
         $this->tickets = new ArrayCollection();
     }
 

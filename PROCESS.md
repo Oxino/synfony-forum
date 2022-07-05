@@ -2,4 +2,4 @@
 
 1. Initialisation docker
 2. Initialisation symfony
-3. yy
+3. Create all entitys for the project

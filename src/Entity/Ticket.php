@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TicketRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -40,6 +41,7 @@ class Ticket
 
     public function __construct()
     {
+        $this->created_at = new \DateTimeImmutable();
         $this->answers = new ArrayCollection();
     }
 
