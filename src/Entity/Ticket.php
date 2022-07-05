@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Trait\CreatedAtTrait;
+use App\Entity\Trait\SlugTrait;
 use App\Entity\Trait\UpdatedAtTrait;
 use App\Repository\TicketRepository;
 use DateTimeImmutable;
@@ -15,6 +16,7 @@ class Ticket
 {
     use CreatedAtTrait;
     use UpdatedAtTrait;
+    use SlugTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -36,6 +38,9 @@ class Ticket
 
     #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Answer::class)]
     private $answers;
+
+    #[ORM\Column(type: 'datetime')]
+    private $published_date;
 
     public function __construct()
     {
@@ -122,6 +127,18 @@ class Ticket
                 $answer->setTicket(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPublishedDate(): ?\DateTimeInterface
+    {
+        return $this->published_date;
+    }
+
+    public function setPublishedDate(\DateTimeInterface $published_date): self
+    {
+        $this->published_date = $published_date;
 
         return $this;
     }

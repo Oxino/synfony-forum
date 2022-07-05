@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ticket.title}}{% endblock %}
+
+{% block body %}
+<h1>{{ticket.title}}</h1>
+<div>
+<div class="badge bg-primary"> {{ ticket.category.title }} </div>
+</div>
+<small class="text-black-50"> {{  ticket.publishedDate|date('d/m/Y H:i') }} </small>
+<div class="mt-2">Auteur : {{ ticket.author.username }}</div>
+{% endblock %}

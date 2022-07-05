@@ -1,0 +1,14 @@
+<div class="col">
+    <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            <h4 class="card-title">{{ ticket.title }}</h4>
+            {# <p class="card-text">{{ ticket.categories }}</p> #}
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="{{ path('ticket-bySlug', {slug: ticket.slug}) }}" class="btn btn-sm btn-outline-secondary">Consulter</a>
+                </div>
+                <small class="text-muted">{{ ticket.publishedDate|date('d/m/Y H:i') }}</small>
+            </div>
+        </div>
+    </div>
+</div>

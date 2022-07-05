@@ -9,11 +9,12 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TicketFixtures extends Fixture implements DependentFixtureInterface
 {
 
-    public function __construct()
+    public function __construct(private SluggerInterface $slugger)
     {
         $this->faker = Factory::create('fr_FR');
     }
@@ -31,12 +32,15 @@ class TicketFixtures extends Fixture implements DependentFixtureInterface
             /** @var Category $randomCategory */
             $randomCategory = $this->getReference('category-' . $randomCategoryId);
 
-            $ticket = new Ticket();
-            $ticket->setTitle($this->faker->sentence(6));
-            $ticket->setAuthor($randomUser);
-            $ticket->setCategory($randomCategory);
-            $ticket->setUpdatedAt(new \DateTime());
-            $ticket->setIsClose(false);
+            $title = $this->faker->sentence(6);
+            $ticket = (new Ticket())
+                ->setTitle($title)
+                ->setSlug($this->slugger->slug($title)->lower())
+                ->setPublishedDate($this->faker->dateTime())
+                ->setAuthor($randomUser)
+                ->setCategory($randomCategory)
+                ->setUpdatedAt(new \DateTime())
+                ->setIsClose(false);
 
             $manager->persist($ticket);   
             $this->setReference('ticket-' . $a, $ticket);

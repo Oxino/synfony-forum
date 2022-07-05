@@ -28,6 +28,9 @@ class Answer
     #[ORM\Column(type: 'text')]
     private $content;
 
+    #[ORM\Column(type: 'datetime')]
+    private $published_date;
+
     public function __construct()
     {
         $this->created_at = new \DateTimeImmutable();
@@ -70,6 +73,18 @@ class Answer
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getPublishedDate(): ?\DateTimeInterface
+    {
+        return $this->published_date;
+    }
+
+    public function setPublishedDate(\DateTimeInterface $published_date): self
+    {
+        $this->published_date = $published_date;
 
         return $this;
     }

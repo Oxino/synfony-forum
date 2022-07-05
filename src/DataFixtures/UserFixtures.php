@@ -8,10 +8,11 @@ use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use stdClass;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UserFixtures extends Fixture
 {
-    public function __construct(private UserPasswordHasherInterface $passwordEncoder)
+    public function __construct(private UserPasswordHasherInterface $passwordEncoder, private SluggerInterface $slugger)
     {
         $this->faker = Factory::create('fr_FR');
     }
@@ -20,21 +21,22 @@ class UserFixtures extends Fixture
     {
         $count = $this->faker->numberBetween(5, 20);
         for ($a = 0; $a < $count; $a++) {
-            $user = new User();
-            $user->setEmail($this->faker->email());
-            $user->setFirstname($this->faker->firstName());
-            $user->setLastname($this->faker->lastName());
-            $user->setRoles(['ROLE_AUTHOR']);
+            $user = (new User())
+                ->setEmail($this->faker->email())
+                ->setFirstname($this->faker->firstName())
+                ->setLastname($this->faker->lastName())
+                ->setRoles(['ROLE_AUTHOR'])
+                ->setAddress($this->faker->address())
+                ->setPhoneNumber($this->faker->phoneNumber())
+                ->setZipCode($this->faker->postCode())
+                ->setUsername($this->faker->userName())
+                ->setIsBanned(false);
             $user->setPassword(
                 $this->passwordEncoder->hashPassword(
                     $user,
                     $this->faker->password()
-            ));
-            $user->setAddress($this->faker->address());
-            $user->setPhoneNumber($this->faker->phoneNumber());
-            $user->setZipCode($this->faker->postCode());
-            $user->setUsername($this->faker->userName());
-            $user->setIsBanned(false);
+                ));
+            $user->setSlug($this->slugger->slug($user->getUsername())->lower());
             
 
             $manager->persist($user);

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!
+{% endblock %}
+
+{% block body %}
+	<h1>Bienvenu sur JVF</h1>
+	<h2>Le dernier sujets</h2>
+	<div class="row row-cols-1 row-cols-sm-2">
+		{% for t in ticket %}
+			{% include '_partials/ticket/card.html.twig' with {ticket: t} only %}
+		{% endfor %}
+	</div>
+	<div class="text-center">
+		<a href="{{ path('ticket-main') }}" class="btn btn-lg btn-outline-primary">Voir tous les sujets</a>
+	</div>
+{% endblock %}

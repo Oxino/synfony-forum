@@ -30,11 +30,12 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
             /** @var Ticket $randomTicket */
             $randomTicket = $this->getReference('ticket-' . $randomTicketId);
 
-            $ticket = new Answer();
-            $ticket->setContent($this->faker->sentence(20));
-            $ticket->setAuthor($randomUser);
-            $ticket->setTicket($randomTicket);
-            $ticket->setUpdatedAt(new \DateTime());
+            $ticket = (new Answer())
+                ->setContent($this->faker->sentence(20))
+                ->setPublishedDate($this->faker->dateTime())
+                ->setAuthor($randomUser)
+                ->setTicket($randomTicket)
+                ->setUpdatedAt(new \DateTime());
 
             $manager->persist($ticket);   
         }

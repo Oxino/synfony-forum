@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos sujets{% endblock %}
+
+{% block body %}
+    <h1>Bienvenu sur JVF</h1>
+    <h2>Nos sujets de conversation</h2>
+    <div class="row row-cols-1 row-cols-sm-2">
+    {% for t in ticket %}
+            {% include '_partials/ticket/card.html.twig' with {ticket: t} only %}
+        {% endfor %}
+        </div>
+{% endblock %}
