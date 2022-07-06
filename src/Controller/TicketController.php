@@ -25,7 +25,8 @@ class TicketController extends AbstractController
     #[Route('/{slug}', name: 'bySlug')]
     public function ticketBySlug(Ticket $ticket): Response {
         return $this->render('ticket/ticket.html.twig', [
-            'ticket' => $ticket
+            'ticket' => $ticket,
+            'answers' => $ticket->getAnswers(),
         ]);
     }
 }

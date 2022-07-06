@@ -1,12 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ticket.title}}{% endblock %}
+{% block title %}
+	{{ticket.title}}
+{% endblock %}
 
 {% block body %}
-<h1>{{ticket.title}}</h1>
-<div>
-<div class="badge bg-primary"> {{ ticket.category.title }} </div>
-</div>
-<small class="text-black-50"> {{  ticket.publishedDate|date('d/m/Y H:i') }} </small>
-<div class="mt-2">Auteur : {{ ticket.author.username }}</div>
+	<h1>{{ticket.title}}</h1>
+	<a href="{{path('category-bySlug', {slug: ticket.category.slug })}}" class="badge bg-primary">
+		{{ticket.category.title }}</a>
+	<small class="text-black-50">
+		{{  ticket.publishedDate|date('d/m/Y H:i') }}
+	</small>
+	<div class="mt-2 mb-4">Auteur :
+		{{ ticket.author.username }}</div>
+	<h2>Les réponces</h2>
+	<div class="row row-cols-1 mt-2">
+		{% for answer in answers %}
+			<div class="d-flex justify-content-between mb-2">
+				<small class="font-weight-bold">
+					{{answer.author.username}}
+				</small>
+				<small class="text-muted">{{ ticket.publishedDate|date('d/m/Y H:i') }}</small>
+			</div>
+			<div class="pb-2 mb-5 border-bottom border-dark">{{answer.content}}</div>
+		{% endfor %}
+	</div>
 {% endblock %}
