@@ -16,13 +16,8 @@
 	<h2>Les réponces</h2>
 	<div class="row row-cols-1 mt-2">
 		{% for answer in answers %}
-			<div class="d-flex justify-content-between mb-2">
-				<small class="font-weight-bold">
-					{{answer.author.username}}
-				</small>
-				<small class="text-muted">{{ ticket.publishedDate|date('d/m/Y H:i') }}</small>
-			</div>
-			<div class="pb-2 mb-5 border-bottom border-dark">{{answer.content}}</div>
+			{% include '_partials/answer/answer.html.twig' with {answer: answer} only %}
+
 		{% endfor %}
 	</div>
 {% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}  Tous les auteurs {% endblock %}
+
+{% block body %}
+    <h2>Tous les auteurs</h2>
+   
+    <div class="row row-cols-2 row-cols-sm-5 mt-3">
+        {% for author in authors %}
+            {% include '_partials/author/card.html.twig' with {author: author} only %}
+        {% endfor %}
+    </div>
+{% endblock %}

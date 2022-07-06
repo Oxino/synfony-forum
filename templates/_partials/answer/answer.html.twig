@@ -1,0 +1,7 @@
+<div class="d-flex justify-content-between mb-2">
+	<small class="font-weight-bold">
+		{{answer.author.username}}
+	</small>
+	<small class="text-muted">{{ answer.publishedDate|date('d/m/Y H:i') }}</small>
+</div>
+<div class="pb-2 mb-5 border-bottom border-dark">{{answer.content}}</div>

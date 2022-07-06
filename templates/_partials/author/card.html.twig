@@ -1,0 +1,21 @@
+<div class="col">
+	<div class="card shadow-sm mb-3">
+		<div class="card-body">
+			<h4 class="card-title">{{ author.username }}</h4>
+			<p class="card-text">Prenom:
+				{{ author.firstname }}</p>
+			<p class="card-text">Nom:
+				{{ author.lastname }}</p>
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="d-flex justify-content-between w-100">
+					<div class="btn-group">
+						<a href="{{path('author-bySlug', {slug: author.slug})}} " class="btn btn-outline-primary">Consulter</a>
+					</div>
+					<div class="btn-group">
+						<a href="#" class="btn btn-outline-danger">Bannir</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
