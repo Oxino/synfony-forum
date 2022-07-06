@@ -30,9 +30,15 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
             /** @var Ticket $randomTicket */
             $randomTicket = $this->getReference('ticket-' . $randomTicketId);
 
+            $minDate = $randomTicket->getPublishedDate();
+            $date = $this->faker->dateTimeBetween(
+                $minDate,
+                'now',
+            );
+
             $ticket = (new Answer())
                 ->setContent($this->faker->sentence(20))
-                ->setPublishedDate($this->faker->dateTime())
+                ->setPublishedDate($date)
                 ->setAuthor($randomUser)
                 ->setTicket($randomTicket)
                 ->setUpdatedAt(new \DateTime());

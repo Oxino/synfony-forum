@@ -18,11 +18,11 @@ class Answer
     private $id;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'answers')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $author;
 
     #[ORM\ManyToOne(targetEntity: Ticket::class, inversedBy: 'answers')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private $ticket;
 
     #[ORM\Column(type: 'text')]
