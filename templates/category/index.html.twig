@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos categories{% endblock %}
+
+{% block body %}
+    <h2>Toutes nos catégories</h2>
+    <div class="row row-cols-1 row-cols-sm-2">
+    {% for category in categories %}
+            {% include '_partials/category/card.html.twig' with {category: category} only %}
+        {% endfor %}
+        </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+<div class="col">
+	<div class="card shadow-sm mb-3">
+		<div class="card-body">
+			<h4 class="card-title">{{ category.title }}</h4>
+			<div class="d-flex justify-content-between align-items-center">
+				<div class="btn-group">
+					<a href="{{ path('category-bySlug', {slug: category.slug}) }}" class="btn btn-sm btn-outline-secondary">Voir les articles de cette catégorie</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

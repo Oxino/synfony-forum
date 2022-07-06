@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ category.title }} {% endblock %}
+
+{% block body %}
+    <h2>Catégorie / {{ category.title }}</h2>
+   
+    <div class="row row-cols-1 row-cols-sm-2">
+        {% for ticket in tickets %}
+            {% include '_partials/ticket/card.html.twig' with {ticket: ticket} only %}
+        {% endfor %}
+    </div>
+{% endblock %}
