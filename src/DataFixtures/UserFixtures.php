@@ -21,28 +21,65 @@ class UserFixtures extends Fixture
     {
         $count = $this->faker->numberBetween(5, 20);
         for ($a = 0; $a < $count; $a++) {
-            $user = (new User())
-                ->setEmail($this->faker->email())
-                ->setFirstname($this->faker->firstName())
-                ->setLastname($this->faker->lastName())
-                ->setRoles(['ROLE_AUTHOR'])
-                ->setAddress($this->faker->address())
-                ->setPhoneNumber($this->faker->phoneNumber())
-                ->setZipCode($this->faker->postCode())
-                ->setUsername($this->faker->userName())
-                ->setIsBanned(false);
-            $user->setPassword(
-                $this->passwordEncoder->hashPassword(
-                    $user,
-                    $this->faker->password()
-                ));
-            $user->setSlug($this->slugger->slug($user->getUsername())->lower());
-            
-
-            $manager->persist($user);
-            $this->setReference('user-' . $a, $user);
+            $this->createUser($manager);
         }
+        $this->createUser($manager, [
+            'email' => 'testuser@gmail.com',
+            'username' => 'TestUser',
+            'firstname' => 'Tim',
+            'lastname' => 'Laurençon',
+            'address' => '7 Cours Dupré Saint Maur',
+            'zip_code' => '33300',
+            'phone_number' => '0665543432',
+            'role' => ['ROLE_AUTHOR'],
+            'password' => '123456'
+        ]);
+        $this->createUser($manager, [
+            'email' => 'testadministrator@gmail.com',
+            'username' => 'TestAdministrator',
+            'firstname' => 'Max',
+            'lastname' => 'Dessange',
+            'address' => '7 Cours Dupré Saint Maur',
+            'zip_code' => '33300',
+            'phone_number' => '0665543432',
+            'role' => ['ROLE_AUTHOR', 'ROLE_ADMINISTRATOR'],
+            'password' => '123456'
+        ]);
 
         $manager->flush();
+    }
+
+    public function createUser(ObjectManager $manager, array $data = []) {
+        static $index = 0;
+        $data = array_replace(
+            [
+                'email' => $this->faker->email(),
+                'username' => $this->faker->userName(),
+                'firstname' => $this->faker->firstName(),
+                'lastname' => $this->faker->lastName(),
+                'address' => $this->faker->address(),
+                "zip_code" => $this->faker->postCode(),
+                'phone_number' => $this->faker->phoneNumber(),
+                "roles" => ['ROLE_AUTHOR'],
+                "password" => $this->faker->password(),
+            ],
+            $data,
+        );
+
+        $user = (new User())
+            ->setEmail($data['email'])
+            ->setUsername($data['username'])
+            ->setFirstname($data['firstname'])
+            ->setLastname($data['lastname'])
+            ->setAddress($data['address'])
+            ->setZipCode($data['zip_code'])
+            ->setPhoneNumber($data['phone_number'])
+            ->setIsBanned(false)
+            ->setSlug($this->slugger->slug($data['username'])->lower())
+            ->setRoles($data['roles']);
+        
+        $user->setPassword($this->passwordEncoder->hashPassword($user, $data['password']));   
+        $manager->persist($user);
+        $this->setReference('user-' . $index++, $user);
     }
 }

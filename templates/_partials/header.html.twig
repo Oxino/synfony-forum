@@ -18,6 +18,15 @@
                 <li><a href="{{ path('ticket-main') }}" class="nav-link px-2 text-secondary">Sujet</a></li>
                 <li><a href="{{ path('author-main') }}" class="nav-link px-2 text-secondary">Auteurs</a></li>
             </ul>
+
+            <div class="text-end">
+            {% if app.user %}
+            <a class="btn btn-outline-danger me-2" href=" {{ path('authentication-logout') }} ">Déconnexion</a>
+            {% else %}
+            <a class="btn btn-outline-light me-2" href=" {{ path('authentication-login') }} ">Se connecter</a>
+            {% endif %}
+            {# <a class="btn btn-warning"chref="">S'inscrire</a> #}
+            </div>
         </div>
     </div>
 </header>
