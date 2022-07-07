@@ -29,7 +29,8 @@ class TicketController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'bySlug')]
-    public function ticketBySlug(Request $request, Ticket $ticket, EntityManagerInterface $entityManager): Response {
+    public function ticketBySlug(Request $request, Ticket $ticket, EntityManagerInterface $entityManager): Response
+    {
         $answer = new Answer();
         $form = $this->createForm(AnswerType::class, $answer);
         $form->handleRequest($request);
@@ -38,7 +39,7 @@ class TicketController extends AbstractController
             $author = $this->getUser();
             $answer->setPublishedDate(new \DateTimeImmutable());
             $answer->setAuthor($author);
-           
+
             $answer->setTicket($ticket);
 
             $entityManager->persist($answer);
@@ -54,22 +55,12 @@ class TicketController extends AbstractController
         ]);
     }
 
-    #[Route('/', name: 'create')]
-    public function createTicket(Request $request): Response
+    #[Route('/remove/{id}', name: 'removeAnswer')]
+    public function ticketRemoveAnswer(Answer $answer, EntityManagerInterface $entityManager): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('authentication-login');
-        }
-        /** @var User $user */
-        $user = $this->getUser();
-        $form = $this->createForm(MeFormType::class, $user);
-        $form->handleRequest($request);
-
-        return $this->render('me/index.html.twig', [
-            'userForm' => $form->createView(),
-            'tickets' => $user->getTickets(),
-            'answers' => $user->getAnswers(),
-        ]);
+        $entityManager->remove($answer);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_main');
     }
 
     #[Route('/closing/{id}', name: 'close')]
@@ -79,7 +70,6 @@ class TicketController extends AbstractController
         $entityManager->persist($ticket);
         $entityManager->flush();
 
-    return $this->redirectToRoute('app_main');
+        return $this->redirectToRoute('app_main');
     }
-    
 }

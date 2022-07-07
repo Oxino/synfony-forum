@@ -5,5 +5,8 @@
 			<p>{{ answer.content }}</p>
 			<footer class="blockquote-footer mt-3">{{ answer.publishedDate|date('d/m/Y H:i') }}</footer>
 		</blockquote>
+		{% if app.user and (app.user.roles[0] == 'ROLE_ADMINISTRATOR' or app.user.id == answer.author.id) %}
+			<a href="{{path('ticket-removeAnswer', {id: answer.id})}}" class="btn  btn-outline-danger mt-2">Supprimer Le message</a>
+		{% endif %}
 	</div>
 </div>
