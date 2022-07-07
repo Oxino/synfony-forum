@@ -24,16 +24,14 @@
 			</p>
 		</div>
 		<div class="col pl-2">
-			<div class="row row-cols-1 px-4">
-				<h3 class="w-100">Les tickets crées</h3>
-				{% for ticket in tickets %}
-					{% include '_partials/ticket/card.html.twig' with {ticket: ticket} only %}
-				{% endfor %}
-				<h3 class="mt-3 w-100">Les réponces données</h3>
-				{% for answer in answers %}
-					{% include '_partials/answer/answer.html.twig' with {answer: answer} only %}
-				{% endfor %}
-			</div>
+			<h3 class="w-100">Les tickets crées</h3>
+			{% for ticket in tickets %}
+				{% include '_partials/ticket/card.html.twig' with {ticket: ticket} only %}
+			{% endfor %}
+			<h3 class="mt-3 w-100">Les réponces données</h3>
+			{% for answer in answers %}
+				{% include '_partials/answer/answer.html.twig' with {answer: answer} only %}
+			{% endfor %}
 		</div>
 	</div>
 

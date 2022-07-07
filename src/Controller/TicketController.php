@@ -53,4 +53,22 @@ class TicketController extends AbstractController
             'answers' => $ticket->getAnswers()->matching($criteria),
         ]);
     }
+
+    #[Route('/', name: 'create')]
+    public function createTicket(Request $request): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('authentication-login');
+        }
+        /** @var User $user */
+        $user = $this->getUser();
+        $form = $this->createForm(MeFormType::class, $user);
+        $form->handleRequest($request);
+
+        return $this->render('me/index.html.twig', [
+            'userForm' => $form->createView(),
+            'tickets' => $user->getTickets(),
+            'answers' => $user->getAnswers(),
+        ]);
+    }
 }

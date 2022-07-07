@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil
+{% endblock %}
+
+{% block body %}
+	<h1>Mon profil</h1>
+	<div class="row">
+		<div class="col-1 col-sm-3 rounded bg-light p-2">
+			{{ form_start(userForm) }}
+			{{ form_row(userForm.firstname) }}
+			{{ form_row(userForm.lastname) }}
+			{{ form_row(userForm.username) }}
+			{{ form_row(userForm.address) }}
+			{{ form_row(userForm.zip_code) }}
+			{{ form_row(userForm.phone_number) }}
+			<button type="submit" class="btn btn-primary">Mettre a jour</button>
+			{{ form_end(userForm) }}
+		</div>
+		<div class="col pl-2">
+			<h3 class="w-100">Les tickets que vous avez crées</h3>
+			{% for ticket in tickets %}
+				{% include '_partials/ticket/card.html.twig' with {ticket: ticket} only %}
+			{% endfor %}
+			<h3 class="mt-3 w-100">Les réponces que vous avez données</h3>
+			{% for answer in answers %}
+				{% include '_partials/answer/answer.html.twig' with {answer: answer} only %}
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

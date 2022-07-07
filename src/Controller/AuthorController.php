@@ -14,6 +14,12 @@ class AuthorController extends AbstractController
     #[Route('/', name: 'main')]
     public function index(UserRepository $userRepository): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('authentication-login');
+        }
+        if (!in_array('ROLE_ADMINISTRATOR', $this->getUser()->getRoles())) {
+            return $this->redirectToRoute('app_main');
+        }
         return $this->render('author/index.html.twig', [
             'authors' => $userRepository->findAll()
         ]);
