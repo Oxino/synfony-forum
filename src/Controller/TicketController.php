@@ -5,14 +5,15 @@ namespace App\Controller;
 use App\Entity\Answer;
 use App\Entity\Ticket;
 use App\Form\AnswerType;
+use App\Form\TicketFormType;
 use App\Repository\TicketRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/ticket', name: 'ticket-')]
 class TicketController extends AbstractController
@@ -25,6 +26,33 @@ class TicketController extends AbstractController
                 [],
                 ['published_date' => 'desc'],
             ),
+        ]);
+    }
+
+    #[Route('/create', name: 'create')]
+    public function createTicket(Request $request, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
+    {
+        $ticket = new Ticket();
+        $form = $this->createForm(TicketFormType::class, $ticket);
+        $form->handleRequest($request);
+
+
+        if ($this->getUser() && $form->isSubmitted() && $form->isValid()) {
+            $author = $this->getUser();
+            $ticket->setPublishedDate(new \DateTime('NOW'));
+            $ticket->setAuthor($author);
+            $ticket->setClose(false);
+            $ticket->setSlug($slugger->slug(
+                $form['title']->getData()
+            )->lower());
+
+            $entityManager->persist($ticket);
+            // $entityManager->persist($author);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_main');
+        }
+        return $this->render('ticket/create.html.twig', [
+            'ticketForm' => $form->createView(),
         ]);
     }
 

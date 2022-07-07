@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creer un nouveau sujet
+{% endblock %}
+
+{% block body %}
+	<h1>Creer un nouveau sujet</h1>
+
+	{{ form_start(ticketForm) }}
+	{{ form_row(ticketForm.title) }}
+	{{ form_row(ticketForm.category) }}
+
+	<button type="submit" class="btn btn-primary mt-3">Créer le sujet</button>
+	{{ form_end(ticketForm) }}
+{% endblock %}

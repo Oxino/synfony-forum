@@ -21,16 +21,16 @@
 
 			</a>
 
-			<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+			<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ml-2">
 				<li>
-					<a href="{{ path('category-main') }}" class="nav-link px-2 text-secondary">Catégorie</a>
+					<a href="{{ path('category-main') }}" class="nav-link px-2 text-white">Catégorie</a>
 				</li>
 				<li>
-					<a href="{{ path('ticket-main') }}" class="nav-link px-2 text-secondary">Sujet</a>
+					<a href="{{ path('ticket-main') }}" class="nav-link px-2 text-white">Sujet</a>
 				</li>
 				{% if app.user and app.user.roles[0] == 'ROLE_ADMINISTRATOR' %}
 				<li>
-					<a href="{{ path('author-main') }}" class="nav-link px-2 text-secondary">Auteurs</a>
+					<a href="{{ path('author-main') }}" class="nav-link px-2 text-white">Auteurs</a>
 				</li>
 				{% endif %}
 			</ul>
@@ -38,7 +38,7 @@
 			<div class="text-end">
 				{% if app.user %}
 					<a class="btn btn-outline-primary me-2" href=" {{ path('me-main') }} ">Mon profil</a>
-					<a class="btn btn-outline-danger me-2" href=" {{ path('authentication-logout') }} ">Déconnexion</a>
+					<a href="{{ path('ticket-create') }}" class="btn btn-primary">Créer</a>
 				{% else %}
 					<a class="btn btn-outline-primary me-2" href=" {{ path('authentication-login') }} ">Se connecter</a>
 					<a class="btn btn-outline-light me-2" href=" {{ path('authentication-register') }} ">S'incrire</a>
