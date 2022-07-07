@@ -71,4 +71,15 @@ class TicketController extends AbstractController
             'answers' => $user->getAnswers(),
         ]);
     }
+
+    #[Route('/closing/{id}', name: 'close')]
+    public function closeTicket(Ticket $ticket, EntityManagerInterface $entityManager): Response
+    {
+        $ticket->setClose(true);
+        $entityManager->persist($ticket);
+        $entityManager->flush();
+
+    return $this->redirectToRoute('app_main');
+    }
+    
 }

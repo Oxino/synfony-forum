@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block body %}
-	<h1>{{ticket.title}}</h1>
+
+	<h1 class="col-9">{{ticket.title}}</h1>
+
 	<a href="{{path('category-bySlug', {slug: ticket.category.slug })}}" class="badge bg-primary">
 		{{ticket.category.title }}</a>
 	<small class="text-black-50">
@@ -13,24 +15,30 @@
 	</small>
 	<div class="mt-2 mb-4">Auteur :
 		{{ ticket.author.username }}</div>
-	{% if app.user %}
-		{# <button type="button" data-comment-id="{{ answer.id }}" class="btn mt-3 mb-3 btn-outline-secondary btn-reply">Répondre</button> #}
+	{% if ticket.close == false %}
+		{% if app.user.username == ticket.author.username %}
+			<a href=" {{ path('ticket-close', {id: ticket.id }) }}" class="btn btn-outline-danger">Cloturer</a>
+		{% endif %}
+		{% if app.user %}
+			{# <button type="button" data-comment-id="{{ answer.id }}" class="btn mt-3 mb-3 btn-outline-secondary btn-reply">Répondre</button> #}
 
-		<fieldset>
-			<div class="card mb-5">
-				<div class="card-header">Ajouter une réponse</div>
-				<div class="card-body">
-					{{ form_start(answerForm) }}
-					{{ form_widget(answerForm.content) }}
-					<button type="submit" class="btn btn-outline-primary mt-3">Répondre</button>
-					{{ form_end(answerForm) }}
+			<fieldset>
+				<div class="card mb-5">
+					<div class="card-header">Ajouter une réponse</div>
+					<div class="card-body">
+						{{ form_start(answerForm) }}
+						{{ form_widget(answerForm.content) }}
+						<button type="submit" class="btn btn-outline-primary mt-3">Répondre</button>
+						{{ form_end(answerForm) }}
+					</div>
 				</div>
-			</div>
-		</fieldset>
+			</fieldset>
 
-	{% else %}
-		<div class="alert alert-warning">Connectez vous pour répondre au sujet</div>
+		{% else %}
+			<div class="alert alert-warning">Connectez vous pour répondre au sujet</div>
+		{% endif %}
 	{% endif %}
+
 
 	{% if answers|length > 0 %}
 		<h2 class="mb-2">Les réponces</h2>
