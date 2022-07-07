@@ -3,8 +3,11 @@
 		<div class="card-body">
 			<h4 class="card-title">{{ category.title }}</h4>
 			<div class="d-flex justify-content-between align-items-center">
-				<div class="btn-group">
-					<a href="{{ path('category-bySlug', {slug: category.slug}) }}" class="btn btn-sm btn-outline-secondary">Voir les articles de cette catégorie</a>
+				<div class="d-flex">
+					<a href="{{ path('category-bySlug', {slug: category.slug}) }}" class="btn btn-sm btn-outline-primary">Voir les articles de cette catégorie</a>
+					{% if app.user and app.user.roles[0] == 'ROLE_ADMINISTRATOR' %}
+						<a href="{{ path('category-editBySlug', {slug: category.slug}) }}" class="btn btn-sm btn-outline-secondary mx-2">Modifier la catégorie</a>
+					{% endif %}
 				</div>
 			</div>
 		</div>

@@ -6,7 +6,7 @@
 {% block body %}
 	<h1>Mon profil</h1>
 	<div class="row">
-		<div class="col-1 col-sm-3 rounded bg-light p-2">
+		<div class="col-12 col-md-3 rounded bg-light p-102 mb-5 mb-md-0">
 			{{ form_start(userForm) }}
 			{{ form_row(userForm.firstname) }}
 			{{ form_row(userForm.lastname) }}
@@ -14,7 +14,7 @@
 			{{ form_row(userForm.address) }}
 			{{ form_row(userForm.zip_code) }}
 			{{ form_row(userForm.phone_number) }}
-			<button type="submit" class="btn btn-primary">Mettre a jour</button>
+			<button type="submit" class="btn btn-primary mb-4 mb-md-0">Mettre a jour</button>
 			{{ form_end(userForm) }}
 			<h3>Vous souhaitez nous quitter ?</h3>
 			<a href="{{ path('me-close') }}" class="btn btn-danger">Cloturer mon compte</a>
