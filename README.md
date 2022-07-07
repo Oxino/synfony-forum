@@ -1,28 +1,36 @@
 # Read me
 
 ## Installer le projet 
-Faire les commandes suivantes : <br>
-1.  docker compose up -d
-2.  docker compose up -d phpmyadmin
-3.  docker compose build
-4.  docker compose run --rm symfony check:requirements
-5.  docker compose run --rm composer install
-6.  docker compose run --rm symfony console doctrine:database:create
-7.  docker compose run --rm symfony console make:migration
-8.  docker compose run --rm symfony console doctrine:migration:migrate
-9.  docker compose require --dev orm-fixtures
-10.  docker compose run --rm symfony console doctrine:fixtures:load
+### Pré-requis
+- Docker
+
+### Configuration
+
+#### Cloner le projet : 
+```
+cd emplacement
+git clone https://github.com/Oxino/synfony-forum
+```
+
+#### Faire les commandes suivantes : <br>
+```
+docker compose up -d
+docker compose run --rm symfony check:requirements
+docker compose run --rm composer install
+docker compose run --rm symfony console doctrine:database:create
+docker compose run --rm symfony console doctrine:migration:migrate
+docker compose require --dev orm-fixtures
+docker compose run --rm symfony console doctrine:fixtures:load
+```
 
 Après cela rendez vous sur http://localhost:8080/ pour vérifier que le php my admin est bien activé et que la base a bienété créer.
 Puis vous pouvez aller sur http://localhost:8000/ pour consulter le site.
 
-## Lancer le projet
-1. docker compose up -d
+## Test
+### Connexion utilisateur
+    Identifiant : 'testuser@gmail.com'
+    Password : '123456'
 
-## Vérifier que le projet est bien fonctionnel
-
-## Commandes utiles
-### Commande pour ftavailler avec fixtures
-docker compose run --rm composer require --dev orm-fixtures
-### Commande pour travailler avec facker php
-docker compose run --rm composer require --dev fakerphp/faker
+### Connexion administrateur
+    Identifiant : 'testadministrator@gmail.com'
+    Password : '123456'
