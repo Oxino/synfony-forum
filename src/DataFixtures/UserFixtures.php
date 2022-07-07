@@ -31,7 +31,7 @@ class UserFixtures extends Fixture
             'address' => '7 Cours Dupré Saint Maur',
             'zip_code' => '33300',
             'phone_number' => '0665543432',
-            'role' => ['ROLE_AUTHOR'],
+            'roles' => ['ROLE_AUTHOR'],
             'password' => '123456'
         ]);
         $this->createUser($manager, [
@@ -42,7 +42,7 @@ class UserFixtures extends Fixture
             'address' => '7 Cours Dupré Saint Maur',
             'zip_code' => '33300',
             'phone_number' => '0665543432',
-            'role' => ['ROLE_AUTHOR', 'ROLE_ADMINISTRATOR'],
+            'roles' => ['ROLE_ADMINISTRATOR', 'ROLE_AUTHOR',],
             'password' => '123456'
         ]);
 

@@ -4,9 +4,9 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Bienvenu sur JVF</h1>
-	<h2>Le dernier sujets</h2>
-	<div class="row row-cols-1 row-cols-sm-2">
+	<h1 class="mb-3">Bienvenu sur JVF</h1>
+	<h2 class="mb-4">Le dernier sujets</h2>
+	<div class="row row-cols-1 row-cols-sm-3">
 		{% for t in ticket %}
 			{% include '_partials/ticket/card.html.twig' with {ticket: t} only %}
 		{% endfor %}

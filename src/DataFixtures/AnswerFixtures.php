@@ -20,9 +20,9 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        $count = $this->faker->numberBetween(10, 30);
-        for ($a = 1; $a <= $count; $a++) {
-            $randomUserId = $this->faker->numberBetween(0, 4);
+        $count = $this->faker->numberBetween(30, 50);
+        for ($a = 0; $a < $count; $a++) {
+            $randomUserId = $this->faker->numberBetween(0, 5);
             /** @var User $randomUser */
             $randomUser = $this->getReference('user-' . $randomUserId);
 
@@ -36,14 +36,14 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
                 'now',
             );
 
-            $ticket = (new Answer())
+            $answer = (new Answer())
                 ->setContent($this->faker->sentence(20))
                 ->setPublishedDate($date)
                 ->setAuthor($randomUser)
                 ->setTicket($randomTicket)
                 ->setUpdatedAt(new \DateTime());
 
-            $manager->persist($ticket);   
+            $manager->persist($answer);   
         }
 
         $manager->flush();

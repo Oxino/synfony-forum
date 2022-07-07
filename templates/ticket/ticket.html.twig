@@ -13,11 +13,29 @@
 	</small>
 	<div class="mt-2 mb-4">Auteur :
 		{{ ticket.author.username }}</div>
-	<h2>Les réponces</h2>
-	<div class="row row-cols-1 mt-2">
+	{% if app.user %}
+		{# <button type="button" data-comment-id="{{ answer.id }}" class="btn mt-3 mb-3 btn-outline-secondary btn-reply">Répondre</button> #}
+
+		<fieldset>
+			<div class="card mb-5">
+				<div class="card-header">Ajouter une réponse</div>
+				<div class="card-body">
+					{{ form_start(answerForm) }}
+					{{ form_widget(answerForm.content) }}
+					<button type="submit" class="btn btn-outline-primary mt-3">Répondre</button>
+					{{ form_end(answerForm) }}
+				</div>
+			</div>
+		</fieldset>
+
+	{% else %}
+		<div class="alert alert-warning">Connectez vous pour répondre au sujet</div>
+	{% endif %}
+
+	{% if answers|length > 0 %}
+		<h2 class="mb-2">Les réponces</h2>
 		{% for answer in answers %}
 			{% include '_partials/answer/answer.html.twig' with {answer: answer} only %}
-
 		{% endfor %}
-	</div>
+	{% endif %}
 {% endblock %}

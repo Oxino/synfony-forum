@@ -34,6 +34,7 @@ class Answer
     public function __construct()
     {
         $this->created_at = new \DateTimeImmutable();
+        $this->updated_at = new \DateTime();
     }
 
     public function getId(): ?int
