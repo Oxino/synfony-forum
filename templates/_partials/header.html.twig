@@ -28,9 +28,11 @@
 				<li>
 					<a href="{{ path('ticket-main') }}" class="nav-link px-2 text-secondary">Sujet</a>
 				</li>
+				{% if app.user and app.user.roles[0] == 'ROLE_ADMINISTRATOR' %}
 				<li>
 					<a href="{{ path('author-main') }}" class="nav-link px-2 text-secondary">Auteurs</a>
 				</li>
+				{% endif %}
 			</ul>
 
 			<div class="text-end">
