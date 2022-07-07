@@ -74,7 +74,7 @@ class UserFixtures extends Fixture
             ->setAddress($data['address'])
             ->setZipCode($data['zip_code'])
             ->setPhoneNumber($data['phone_number'])
-            ->setIsBanned(false)
+            ->setBanned(false)
             ->setSlug($this->slugger->slug($data['username'])->lower())
             ->setRoles($data['roles']);
         

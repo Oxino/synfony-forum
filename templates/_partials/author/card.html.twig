@@ -12,7 +12,11 @@
 						<a href="{{path('author-bySlug', {slug: author.slug})}} " class="btn btn-outline-primary">Consulter</a>
 					</div>
 					<div class="btn-group">
-						<a href="#" class="btn btn-outline-danger">Bannir</a>
+						{% if author.banned %}
+							<a href="{{path('author-banish', {id: author.id})}} " class="btn btn-outline-success">Débanir</a>
+						{% else %}
+							<a href="{{path('author-banish', {id: author.id})}} " class="btn btn-outline-danger">Bannir</a>
+						{% endif %}
 					</div>
 				</div>
 			</div>

@@ -51,13 +51,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $phone_number;
 
     #[ORM\Column(type: 'boolean')]
-    private $is_banned = false;
+    private $banned = false;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Ticket::class, orphanRemoval: true)]
     private $tickets;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Answer::class, orphanRemoval: true)]
     private $answers;
+
+    #[ORM\Column(type: 'boolean')]
+    private $close = false;
 
     public function __construct()
     {
@@ -208,15 +211,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsBanned(): ?bool
+    public function isBanned(): ?bool
     {
-        return $this->is_banned;
+        return $this->banned;
     }
 
-    public function setIsBanned(bool $is_banned): self
+    public function setBanned(bool $banned): self
     {
 
-        $this->is_banned = $is_banned;
+        $this->banned = $banned;
 
         return $this;
     }
@@ -277,6 +280,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $answer->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isClose(): ?bool
+    {
+        return $this->close;
+    }
+
+    public function setClose(bool $close): self
+    {
+        $this->close = $close;
 
         return $this;
     }

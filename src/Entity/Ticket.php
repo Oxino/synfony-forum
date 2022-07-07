@@ -34,7 +34,7 @@ class Ticket
     private $title;
 
     #[ORM\Column(type: 'boolean')]
-    private $is_close;
+    private $close;
 
     #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Answer::class)]
     private $answers;
@@ -89,14 +89,14 @@ class Ticket
         return $this;
     }
 
-    public function isIsClose(): ?bool
+    public function isClose(): ?bool
     {
-        return $this->is_close;
+        return $this->close;
     }
 
-    public function setIsClose(bool $is_close): self
+    public function setClose(bool $close): self
     {
-        $this->is_close = $is_close;
+        $this->close = $close;
 
         return $this;
     }

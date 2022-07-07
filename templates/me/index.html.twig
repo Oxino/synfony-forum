@@ -16,6 +16,8 @@
 			{{ form_row(userForm.phone_number) }}
 			<button type="submit" class="btn btn-primary">Mettre a jour</button>
 			{{ form_end(userForm) }}
+			<h3>Vous souhaitez nous quitter ?</h3>
+			<a href="{{ path('me-close') }}" class="btn btn-danger">Cloturer mon compte</a>
 		</div>
 		<div class="col pl-2">
 			<h3 class="w-100">Les tickets que vous avez crées</h3>

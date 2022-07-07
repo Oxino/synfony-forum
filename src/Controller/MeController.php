@@ -35,4 +35,16 @@ class MeController extends AbstractController
             'answers' => $user->getAnswers(),
         ]);
     }
+
+    #[Route('/close', name: 'close')]
+    public function close(EntityManagerInterface $entityManager): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $user->setClose(true);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('authentication-logout');
+    }
 }
